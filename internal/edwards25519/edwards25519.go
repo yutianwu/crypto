@@ -796,6 +796,23 @@ func geAdd(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElem
 	FeSub(&r.T, &t0, &r.T)
 }
 
+
+func GeAdd(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElement) {
+	var t0 FieldElement
+
+	FeAdd(&r.X, &p.Y, &p.X)
+	FeSub(&r.Y, &p.Y, &p.X)
+	FeMul(&r.Z, &r.X, &q.yPlusX)
+	FeMul(&r.Y, &r.Y, &q.yMinusX)
+	FeMul(&r.T, &q.T2d, &p.T)
+	FeMul(&r.X, &p.Z, &q.Z)
+	FeAdd(&t0, &r.X, &r.X)
+	FeSub(&r.X, &r.Z, &r.Y)
+	FeAdd(&r.Y, &r.Z, &r.Y)
+	FeAdd(&r.Z, &t0, &r.T)
+	FeSub(&r.T, &t0, &r.T)
+}
+
 func geSub(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElement) {
 	var t0 FieldElement
 
